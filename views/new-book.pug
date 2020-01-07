@@ -1,20 +1,20 @@
 extends layout
 
 block content
-  h1 New Book
-  form(method="post" action=`/` onsubmit="return confirm('Do you really want to create this book?');")
+  h1 title
+  form(method="post" action=`/books` onsubmit="return confirm('Do you really want to create this book?');")
     p
       label(for="title")= "Title"
-      input(name="title" type="text" id="title")
+      input(name="title" type="text" id="title" )
     p
       label(for="author")= "Author"
-      input(name="author" type="text" id="author")
+      input(name="author" type="text" id="author" )
     p
       label(for="genre")= "Genre"
-      input(name="genre" type="text" id="genre")
+      input(name="genre" type="text" id="genre" )
     p
       label(for="year")= "Year"
-      input(name="year" type="text" id="year")
+      input(name="year" type="text" id="year" )
     p
       input(type="submit" value="Create New Book")
     p 
