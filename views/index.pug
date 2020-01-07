@@ -1,12 +1,22 @@
 extends layout
 
 block content
-  div.subheader
-    h2 Books
-    a(href="/books/new") Add Book;
+  h1 Books
+  p
+    a(href="/books/new" class="button") Create New Book
+  table
+    thead
+      tr
+        th= "Title"
+        th= "Author"
+        th= "Genre"
+        th= "Year"
+    tbody
+        each book in books
+            tr
+              td
+                a(href = "/books/" + book.id)= book.title
+              td= book.author
+              td= book.genre
+              td= book.year
     
-  each book in books
-    book
-      h3= book.title
-      p= book.genre
-      a(href = "/books/" + book.id) Read More &rarr;
