@@ -10,6 +10,7 @@ const books = require('./routes/books');
 const app = express();
 
 // view engine setup
+app.listen(3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 

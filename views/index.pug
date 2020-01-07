@@ -1,1 +1,12 @@
-ffaadaaddada
+extends layout
+
+block content
+  div.subheader
+    h2 Books
+    a(href="/books/new") Add Book;
+    
+  each book in books
+    book
+      h3= book.title
+      p= book.genre
+      a(href = "/books/" + book.id) Read More &rarr;

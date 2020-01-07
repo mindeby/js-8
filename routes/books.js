@@ -12,10 +12,11 @@ function asyncHandler(cb){
   }
 }
 
+
 /* GET books listing. */
 router.get('/', asyncHandler(async (req, res) => {
-  const books = await Book.findAll({order: [["createdAt", "DESC"]]});
-  res.render("/index", { books, title: "Sequelize-It!" });
+  const books = await Book.findAll();
+  res.render("./index", { books, title: books.title });
 }));
 
 /* Add a new book. */
@@ -26,17 +27,17 @@ router.get('/books/new', (req, res) => {
 /* POST Add book. */
 router.post('/', asyncHandler(async (req, res) => {
   let book;
-try {
-  book = await Book.create(req.body);
-  res.redirect("/books/new/" + book.id);
-} catch (error) {
-  if(error.name === "SequelizeValidationError") { // checking the error
-    book = await Book.build(req.body);
-    res.render("new-book", { book, errors: error.errors, title: "New Book" })
-  } else {
-    throw error; // error caught in the asyncHandler's catch block
+  try {
+    book = await Book.create(req.body);
+    res.redirect("/books/new/" + book.id);
+  } catch (error) {
+    if(error.name === "SequelizeValidationError") { // checking the error
+      book = await Book.build(req.body);
+      res.render("new-book", { book, errors: error.errors, title: "New Book" })
+    } else {
+      throw error; // error caught in the asyncHandler's catch block
+    }
   }
-}
 }));
 
 /* GET individual book. */
