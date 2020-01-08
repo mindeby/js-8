@@ -33,7 +33,7 @@ router.post('/', asyncHandler(async (req, res) => {
   } catch (error) {
     if(error.name === "SequelizeValidationError") { // checking if the error is a sequelize error
       book = await Book.build(req.body);
-      res.render("./new-book", { book, errors: error.errors})
+      res.render("./new-book", { book})
     } else {
       throw error; // error caught in the asyncHandler's catch block
     }
@@ -44,9 +44,9 @@ router.post('/', asyncHandler(async (req, res) => {
 router.get("/:id", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id); //find the id of the book that matches the params.id
  if(book) {
-   res.render("./book-detail", { book });
+   res.render("./update-book", { book });
  } else {
-   res.sendStatus(404); //If the id doesn't exist the page will display 404 error
+   res.sendStatus(404);
  }
 }));
 
@@ -65,9 +65,9 @@ router.post('/:id', asyncHandler(async (req, res) => {
     if(error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id; // make sure correct book gets updated
-      res.render("./book-detail", { book, errors: error.errors, title: "Edit Book" })
+      res.render("./update-book", { book })
     } else {
-      throw error;
+      throw error; // error caught in the asyncHandler's catch block
     }
   }
 }));
@@ -82,5 +82,6 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
       res.sendStatus(404);
     }
 }));
+
 
 module.exports = router;

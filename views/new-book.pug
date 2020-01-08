@@ -2,6 +2,7 @@ extends layout
 
 block content
   h1 New book
+  include errors
   form(method="post" action=`/books` onsubmit="return confirm('Do you really want to create this book?');")
     p
       label(for="title")= "Title"
