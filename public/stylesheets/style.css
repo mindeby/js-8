@@ -95,3 +95,16 @@ input[type=text] {
 .error {
   color: rgb(236, 15, 15);
 }
+
+ul {
+  display: flex;
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  background-color: white;
+  padding: 5px;
+}
