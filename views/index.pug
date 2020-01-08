@@ -2,6 +2,7 @@ extends layout
 
 block content
   h1 Books  
+  h1= pageNumber
   p
     a(href="/books/new" class="button") Create New Book
   table
@@ -20,9 +21,11 @@ block content
               td= book.genre
               td= book.year
     
-  -var buttons = books.length/5
+  -var buttons = allBooks.length/5
   
   ul
     - for(var i = 0; i < buttons; i++)
       li
-        button= i+1
+        a(href=`/books/page/${i+1}`)
+          button(id=`${i+1}`)= i+1
+        

@@ -15,8 +15,22 @@ function asyncHandler(cb){
 
 /* GET books listing. Home Route redirects to /books route (index.js) and shows full list of books */
 router.get('/', asyncHandler(async (req, res) => {
-  const books = await Book.findAll(); //find every book and render the page with the books info
-  res.render("./index", { books });
+  const allBooks = await Book.findAll(); //find every book and render the page with the books info
+  var books = await Book.findAll({limit: 5}); //display on the page only the first 5
+  res.render("./index", { books, allBooks });
+}));
+
+/* Get page*/
+router.get('/page/:page', asyncHandler(async (req, res) => {
+  const allBooks = await Book.findAll(); //find every book and render the page with the books info
+  const pageNumber = req.params.page-1;
+  const offset = pageNumber * 5;
+  const books = await Book.findAll({limit: 5, offset: offset });
+  if ( pageNumber <= (allBooks.length/5) ) {
+    res.render("./index", { books, allBooks });
+  } else {
+    res.sendStatus(404);
+  }
 }));
 
 /* Add a new book. just the render of the page */
