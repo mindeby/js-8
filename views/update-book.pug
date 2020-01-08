@@ -1,7 +1,14 @@
 extends layout
 block content
   h1 Update Book
-  include errors
+  
+  if(errors)
+    h2.errors(class="error") Oops an error occurred!
+    ul.errors(class="error")
+      each error in errors
+        li
+          =error.message
+          
   form(method="post" action=`/books/${book.id}`) 
     p
       label(for="title")= "Title"
