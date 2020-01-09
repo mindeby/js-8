@@ -22,7 +22,7 @@ router.get('/', asyncHandler(async (req, res) => {
   res.render("./index", { books, allBooks });
 }));
 
-/*Get search results*/
+/*Get search query*/
 router.post('/search', asyncHandler(async (req, res) => {
   const search = req.body.search;
   const allBooks = await Book.findAll(); //find every book and render the page with the books info
@@ -83,7 +83,7 @@ router.get('/new', (req, res) => {
 });
 
 /* POST Add book. create a book with the body of the request and post it*/
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/new', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.create(req.body);
@@ -100,7 +100,7 @@ router.post('/', asyncHandler(async (req, res) => {
 
 /* GET individual book. Renders detail form*/
 router.get("/:id", asyncHandler(async (req, res) => {
-  const book = await Book.findByPk(req.params.id); //find the id of the book that matches the params.id
+ const book = await Book.findByPk(req.params.id); //find the id of the book that matches the params.id
  if(book) {
    res.render("./update-book", { book });
  } else {

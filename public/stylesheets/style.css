@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #019875;
+  color: #4F6DA5;
   text-decoration: none;
   font-weight: bold;
   transition: 0.4s;
@@ -16,7 +16,7 @@ a {
 
 a.button, input[type=submit] {
   color: white;
-  background: #019875;
+  background: #5A55FF;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   padding: 10px 14px 12px;
   font-size: 14px;
@@ -34,7 +34,7 @@ input[type=submit] {
 }
 
   a.button:hover, input[type=submit]:hover {
-    background-color: #01b189;
+    background-color: #2593A5;
   }
 
 p {
@@ -107,4 +107,22 @@ li {
 button {
   background-color: white;
   padding: 5px;
+}
+
+#home {
+  display: block;
+  color: #256DA5;
+  text-transform: uppercase;
+  position: absolute;
+  top: 650px;
+}
+
+#search_button {
+  margin-left: 5px;
+  padding: 12px;
+}
+
+#friendly_message {
+  margin-top: 150px;
+  font-size: 1.5em;
 }
