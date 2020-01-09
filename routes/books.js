@@ -23,7 +23,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 /*Get search results*/
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/search', asyncHandler(async (req, res) => {
   const search = req.body.search;
   const allBooks = await Book.findAll(); //find every book and render the page with the books info
   console.log(search)
@@ -56,7 +56,11 @@ router.post('/', asyncHandler(async (req, res) => {
     }
   };
   const books = await Book.findAll(options);
-  res.render("./index", { books, allBooks:books });
+  if (books.length > 0) {
+    res.render("./index", { books, allBooks:books });
+  } else {
+    res.render("./search-not-found");
+  }
 }));
 
 

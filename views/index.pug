@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1 Books  
-  form(method="post")
-    label(for="search") Search:
+  form(method="post" action="/books/search")
+    label(for="search") Search for a book:
     input(name="search" type='text')
     input(type="submit" value="GO")
   

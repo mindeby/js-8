@@ -11,7 +11,7 @@ block content
         li
           =error.message
       
-  form(method="post" action=`/books` onsubmit="return confirm('Do you really want to create this book?');")
+  form(method="post" action=`/books`)
     p
       label(for="title")= "Title"
       input(name="title" type="text" id="title" )
