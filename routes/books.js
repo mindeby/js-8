@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models').Book;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 /* Handler function to wrap each route. */
 function asyncHandler(cb){
   return async(req, res, next) => {
@@ -16,17 +18,55 @@ function asyncHandler(cb){
 /* GET books listing. Home Route redirects to /books route (index.js) and shows full list of books */
 router.get('/', asyncHandler(async (req, res) => {
   const allBooks = await Book.findAll(); //find every book and render the page with the books info
-  var books = await Book.findAll({limit: 5}); //display on the page only the first 5
+  var books = await Book.findAll({limit: 10}); //display on the page only the first 5
   res.render("./index", { books, allBooks });
 }));
+
+/*Get search results*/
+router.post('/', asyncHandler(async (req, res) => {
+  const search = req.body.search;
+  const allBooks = await Book.findAll(); //find every book and render the page with the books info
+  console.log(search)
+  var options = {
+    where: {
+      [Op.or]:
+        [
+          {
+            title: {
+              [Op.substring]:search
+            }
+          },
+          {
+            author: {
+              [Op.substring]:search
+            }
+          },
+          {
+            genre: {
+              [Op.substring]:search
+            }
+          },
+          {
+            year: {
+              [Op.substring]:search
+            }
+          },
+
+      ]
+    }
+  };
+  const books = await Book.findAll(options);
+  res.render("./index", { books, allBooks:books });
+}));
+
 
 /* Get page*/
 router.get('/page/:page', asyncHandler(async (req, res) => {
   const allBooks = await Book.findAll(); //find every book and render the page with the books info
   const pageNumber = req.params.page-1;
-  const offset = pageNumber * 5;
-  const books = await Book.findAll({limit: 5, offset: offset });
-  if ( pageNumber <= (allBooks.length/5) ) {
+  const offset = pageNumber * 10;
+  const books = await Book.findAll({limit: 10, offset: offset });
+  if ( pageNumber <= (allBooks.length/10) ) {
     res.render("./index", { books, allBooks });
   } else {
     res.sendStatus(404);

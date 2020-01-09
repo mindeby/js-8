@@ -2,7 +2,11 @@ extends layout
 
 block content
   h1 Books  
-  h1= pageNumber
+  form(method="post")
+    label(for="search") Search:
+    input(name="search" type='text')
+    input(type="submit" value="GO")
+  
   p
     a(href="/books/new" class="button") Create New Book
   table
@@ -21,7 +25,7 @@ block content
               td= book.genre
               td= book.year
     
-  -var buttons = allBooks.length/5
+  -var buttons = allBooks.length/10
   
   ul
     - for(var i = 0; i < buttons; i++)
